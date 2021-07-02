@@ -1,0 +1,41 @@
+kmeans_model = KMeans(n_clusters=4, init='k-means++', max_iter=100) 
+X = kmeans_model.fit(d2v_model.docvecs.doctag_syn0)
+labels=kmeans_model.labels_.tolist()
+
+l = kmeans_model.fit_predict(d2v_model.docvecs.doctag_syn0)
+pca = PCA(n_components=2).fit(d2v_model.docvecs.doctag_syn0)
+datapoint = pca.transform(d2v_model.docvecs.doctag_syn0)
+
+import matplotlib.pyplot as plt
+%matplotlib inlineplt.figure
+
+
+label1 = ["#FFFF00”, "#008000”, "#0000FF”, "#800080”]
+color = [label1[i] for i in labels]
+plt.scatter(datapoint[:, 0], datapoint[:, 1], c=color)
+
+centroids = kmeans_model.cluster_centers_
+centroidpoint = pca.transform(centroids)
+plt.scatter(centroidpoint[:, 0], centroidpoint[:, 1], marker='^', s=150, c='#000000')
+plt.show()
+
+
+kmeans_model = KMeans(n_clusters=4, init='k-means++', max_iter=100) 
+X = kmeans_model.fit(d2v_model.dv.vectors)
+labels=kmeans_model.labels_.tolist()
+l = kmeans_model.fit_predict(d2v_model.dv.vectors)
+pca = PCA(n_components=2).fit(d2v_model.dv.vectors)
+datapoint = pca.transform(d2v_model.dv.vectors)
+
+import matplotlib.pyplot as plt
+%matplotlib inlineplt.figure
+
+
+label1 = ["#FFFF00", "#008000", "#0000FF", "#800080"]
+color = [label1[i] for i in labels]
+plt.scatter(datapoint[:, 0], datapoint[:, 1], c=color)
+
+centroids = kmeans_model.cluster_centers_
+centroidpoint = pca.transform(centroids)
+plt.scatter(centroidpoint[:, 0], centroidpoint[:, 1], marker='^', s=150, c='#000000')
+plt.show()
